@@ -9,9 +9,9 @@ const protect = (req, res, next) => {
         req.headers.authorization.startsWith("Bearer")
     ) {
 
-        token = req.headers.authorization.split(" ")[1]
-
         try {
+
+            token = req.headers.authorization.split(" ")[1]
 
             const decoded = jwt.verify(
                 token,
@@ -20,11 +20,11 @@ const protect = (req, res, next) => {
 
             req.user = decoded
 
-            next()
+            return next()
 
         } catch (error) {
 
-            res.status(401).json({
+            return res.status(401).json({
                 message: "Token Failed"
             })
         }
@@ -32,7 +32,7 @@ const protect = (req, res, next) => {
     }
 
     if (!token) {
-        res.status(401).json({
+        return res.status(401).json({
             message: "No Token"
         })
     }

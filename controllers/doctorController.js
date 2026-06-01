@@ -1,4 +1,4 @@
-const Doctor = require("../models/Doctor")
+const Doctor = require("../models/doctor")
 
 exports.createDoctor = async (req, res) => {
 
